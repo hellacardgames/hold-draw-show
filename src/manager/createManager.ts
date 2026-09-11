@@ -3,11 +3,15 @@ import {
   createGame,
   getClientStateAndClearEvents,
   getEventsAndClearAcknowledged,
+  holdCard,
   joinGame,
   leaveGame,
   MAX_PLAYERS,
+  reportReadyForNextRound,
+  reportReadyToDraw,
   sendChat,
   startGame,
+  unholdCard,
 } from "../game/index.js";
 
 export type Manager = ReturnType<typeof createManager>;
@@ -21,5 +25,10 @@ export const createManager = createManagerFactory({
   leaveGame,
   sendChat,
   startGame,
-  gameplayActions: {},
+  gameplayActions: {
+    holdCard,
+    reportReadyForNextRound,
+    reportReadyToDraw,
+    unholdCard,
+  },
 });

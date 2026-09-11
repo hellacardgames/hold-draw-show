@@ -1,6 +1,7 @@
 import { emitEvent, isPlayerAdmin } from "@hellacardgames/lib";
 import { EXPIRY_EXTENSION_MS, MIN_PLAYERS } from "../constants.js";
 import { transitionGameToStarted } from "../lib/transitionGameToStarted.js";
+import { startRound } from "../lib/startRound.js";
 import type { Game } from "../types/Game.js";
 
 export function startGame(game: Game, playerId: string) {
@@ -20,6 +21,8 @@ export function startGame(game: Game, playerId: string) {
 
   game = transitionGameToStarted(game);
   game = emitEvent(game, { type: "gameStarted" });
+
+  game = startRound(game);
 
   game = { ...game, expiresAt: Date.now() + EXPIRY_EXTENSION_MS };
   game = emitEvent(game, {

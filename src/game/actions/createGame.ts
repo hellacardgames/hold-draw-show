@@ -1,4 +1,4 @@
-import { EXPIRY_EXTENSION_MS } from "../constants.js";
+import { CARDS, EXPIRY_EXTENSION_MS } from "../constants.js";
 import type { CreatedGame } from "../types/Game.js";
 import type { Player } from "../types/Player.js";
 
@@ -8,6 +8,11 @@ export function createGame(userId: string, username: string) {
     userId,
     username,
     events: [],
+    status: "waitingForGameToStart",
+    hand: [],
+    handRankInfo: null,
+    heldCardIndices: [],
+    score: 0,
   };
   const createdAt = Date.now();
   const game: CreatedGame = {
@@ -17,6 +22,8 @@ export function createGame(userId: string, username: string) {
     expiresAt: createdAt + EXPIRY_EXTENSION_MS,
     chatMessages: [],
     players: [player],
+    deck: CARDS,
+    roundsCompleted: 0,
   };
   return { game, playerId: player.id } as const;
 }

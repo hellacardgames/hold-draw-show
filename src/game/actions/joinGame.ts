@@ -19,6 +19,11 @@ export function joinGame(game: Game, userId: string, username: string) {
     userId,
     username,
     events: [],
+    status: "waitingForGameToStart",
+    hand: [],
+    handRankInfo: null,
+    heldCardIndices: [],
+    score: 0,
   };
 
   game = { ...game, players: addItemToCollection(game.players, player) };

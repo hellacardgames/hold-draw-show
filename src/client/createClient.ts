@@ -4,4 +4,23 @@ import type { Server } from "../server/createServer.js";
 
 export type Client = ReturnType<typeof createClient>;
 
-export const createClient = createClientFactory<Server, Manager>({});
+export const createClient = createClientFactory<Server, Manager>({
+  holdCard: (gameId: string, playerId: string, cardId: string) => ({
+    gameId,
+    playerId,
+    cardId,
+  }),
+  reportReadyForNextRound: (gameId: string, playerId: string) => ({
+    gameId,
+    playerId,
+  }),
+  reportReadyToDraw: (gameId: string, playerId: string) => ({
+    gameId,
+    playerId,
+  }),
+  unholdCard: (gameId: string, playerId: string, cardId: string) => ({
+    gameId,
+    playerId,
+    cardId,
+  }),
+});
