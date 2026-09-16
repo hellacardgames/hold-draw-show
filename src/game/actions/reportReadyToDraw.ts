@@ -1,5 +1,7 @@
 import {
   emitEvent,
+  emitEventToOtherPlayers,
+  emitEventToPlayer,
   shuffle,
   takeLastItemFromCollection,
   updatePlayer,
@@ -7,10 +9,10 @@ import {
 import { EXPIRY_EXTENSION_MS } from "../constants.js";
 import { areAllPlayersReadyToDraw } from "../lib/areAllPlayersReadyToDraw.js";
 import { calculateHandRankInfo } from "../lib/calculateHandRankInfo.js";
-import type { Game } from "../types/Game.js";
-import type { Card } from "../types/Card.js";
 import { getPointsFromHandRankInfo } from "../lib/getPointsFromHandRankInfo.js";
 import { transitionGameToCompleted } from "../lib/transitionGameToCompleted.js";
+import type { Game } from "../types/Game.js";
+import type { Card } from "../types/Card.js";
 
 export function reportReadyToDraw(game: Game, playerId: string) {
   const player = game.players.find((p) => p.id === playerId);
@@ -29,8 +31,11 @@ export function reportReadyToDraw(game: Game, playerId: string) {
     status: "readyToDraw",
   }));
 
-  game = emitEvent(game, {
+  game = emitEventToPlayer(game, player.id, {
     type: "playerReadyToDraw",
+  });
+  game = emitEventToOtherPlayers(game, player.id, {
+    type: "otherPlayerReadyToDraw",
     username: player.username,
   });
 
@@ -64,8 +69,14 @@ export function reportReadyToDraw(game: Game, playerId: string) {
         score,
       }));
 
-      game = emitEvent(game, {
+      game = emitEventToPlayer(game, player.id, {
         type: "playerDrewCards",
+        hand,
+        handRankInfo,
+        score,
+      });
+      game = emitEventToOtherPlayers(game, player.id, {
+        type: "otherPlayerDrewCards",
         username: player.username,
         hand,
         handRankInfo,

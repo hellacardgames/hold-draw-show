@@ -6,17 +6,29 @@ export type ClientState = {
   readonly status: "created" | "started" | "completed" | "forfeited";
   readonly gameId: string;
   readonly playerId: string;
-  readonly username: string;
-  readonly players: readonly Player[];
+  readonly player: Player;
+  readonly otherPlayers: readonly OtherPlayer[];
   readonly adminUsername: string;
   readonly expiresAt: number;
   readonly chatMessages: readonly ChatMessage[];
-  readonly hand: readonly Card[];
-  readonly handRankInfo: HandRankInfo | null;
   readonly roundsCompleted: number;
 };
 
 type Player = {
+  readonly username: string;
+  readonly status:
+    | "waitingForGameToStart"
+    | "selectingHolds"
+    | "readyToDraw"
+    | "reviewingOutcome"
+    | "readyForNextRound";
+  readonly hand: readonly Card[];
+  readonly handRankInfo: HandRankInfo | null;
+  readonly heldCardIndices: readonly number[];
+  readonly score: number;
+};
+
+type OtherPlayer = {
   readonly username: string;
   readonly status:
     | "waitingForGameToStart"

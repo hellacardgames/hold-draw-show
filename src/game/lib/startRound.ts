@@ -1,5 +1,5 @@
 import {
-  emitEvent,
+  emitEventToOtherPlayers,
   emitEventToPlayer,
   shuffle,
   takeLastItemsFromCollection,
@@ -31,12 +31,12 @@ export function startRound(game: StartedGame): StartedGame {
     }));
 
     game = emitEventToPlayer(game, player.id, {
-      type: "handInitialized",
+      type: "playerHandInitialized",
       hand,
       handRankInfo,
     });
-    game = emitEvent(game, {
-      type: "playerHandInitialized",
+    game = emitEventToOtherPlayers(game, player.id, {
+      type: "otherPlayerHandInitialized",
       username: player.username,
       hand: hand.map(() => null),
     });

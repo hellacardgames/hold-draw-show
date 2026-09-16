@@ -14,24 +14,31 @@ export const getClientStateAndClearEvents = getClientStateAndClearEventsFactory<
   status: game.status,
   gameId: game.id,
   playerId: player.id,
-  username: player.username,
-  players: game.players.map((p) => ({
-    username: p.username,
-    status: p.status,
-    hand: getPlayerHand(p),
-    handRankInfo: getPlayerHandRankInfo(p),
-    heldCardIndices: p.heldCardIndices,
-    score: p.score,
-  })),
+  player: {
+    username: player.username,
+    status: player.status,
+    hand: player.hand,
+    handRankInfo: player.handRankInfo,
+    heldCardIndices: player.heldCardIndices,
+    score: player.score,
+  },
+  otherPlayers: game.players
+    .filter((p) => p.id !== player.id)
+    .map((otherPlayer) => ({
+      username: otherPlayer.username,
+      status: otherPlayer.status,
+      hand: getOtherPlayerHand(otherPlayer),
+      handRankInfo: getOtherPlayerHandRankInfo(otherPlayer),
+      heldCardIndices: otherPlayer.heldCardIndices,
+      score: otherPlayer.score,
+    })),
   adminUsername: requirePlayer(game, game.adminId).player.username,
   expiresAt: game.expiresAt,
   chatMessages: game.chatMessages,
-  hand: player.hand,
-  handRankInfo: player.handRankInfo,
   roundsCompleted: game.roundsCompleted,
 }));
 
-function getPlayerHand(player: Player) {
+function getOtherPlayerHand(player: Player) {
   switch (player.status) {
     case "selectingHolds":
     case "readyToDraw":
@@ -43,7 +50,7 @@ function getPlayerHand(player: Player) {
   }
 }
 
-function getPlayerHandRankInfo(player: Player) {
+function getOtherPlayerHandRankInfo(player: Player) {
   switch (player.status) {
     case "selectingHolds":
     case "readyToDraw":

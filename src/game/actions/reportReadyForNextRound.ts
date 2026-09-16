@@ -1,4 +1,9 @@
-import { emitEvent, updatePlayer } from "@hellacardgames/lib";
+import {
+  emitEvent,
+  emitEventToOtherPlayers,
+  emitEventToPlayer,
+  updatePlayer,
+} from "@hellacardgames/lib";
 import { EXPIRY_EXTENSION_MS } from "../constants.js";
 import { areAllPlayersReadyForNextRound } from "../lib/areAllPlayersReadyForNextRound.js";
 import { startRound } from "../lib/startRound.js";
@@ -21,8 +26,11 @@ export function reportReadyForNextRound(game: Game, playerId: string) {
     status: "readyForNextRound",
   }));
 
-  game = emitEvent(game, {
+  game = emitEventToPlayer(game, player.id, {
     type: "playerReadyForNextRound",
+  });
+  game = emitEventToOtherPlayers(game, player.id, {
+    type: "otherPlayerReadyForNextRound",
     username: player.username,
   });
 

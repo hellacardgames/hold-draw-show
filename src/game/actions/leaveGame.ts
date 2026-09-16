@@ -11,8 +11,11 @@ export function leaveGame(game: Game, playerId: string) {
 
   game = { ...game, deck: [...game.deck, ...player.hand] };
 
-  game = emitEvent(game, { type: "playerLeft", username: player.username });
   game = removePlayer(game, player.id);
+  game = emitEvent(game, {
+    type: "otherPlayerLeft",
+    username: player.username,
+  });
 
   if (game.players.length > 0 && player.id === game.adminId) {
     const newAdmin = requirePlayerOne(game);

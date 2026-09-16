@@ -1,6 +1,7 @@
 import {
   addItemToCollection,
-  emitEvent,
+  emitEventToOtherPlayers,
+  emitEventToPlayer,
   updatePlayer,
 } from "@hellacardgames/lib";
 import type { Game } from "../types/Game.js";
@@ -29,8 +30,12 @@ export function holdCard(game: Game, playerId: string, cardId: string) {
     heldCardIndices: addItemToCollection(p.heldCardIndices, cardIndex),
   }));
 
-  game = emitEvent(game, {
+  game = emitEventToPlayer(game, player.id, {
     type: "playerHeldCard",
+    index: cardIndex,
+  });
+  game = emitEventToOtherPlayers(game, player.id, {
+    type: "otherPlayerHeldCard",
     username: player.username,
     index: cardIndex,
   });
