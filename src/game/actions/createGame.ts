@@ -1,4 +1,5 @@
-import { CARDS, EXPIRY_EXTENSION_MS } from "../constants.js";
+import { CARDS } from "@hellacardgames/lib";
+import { EXPIRY_EXTENSION_MS } from "../constants.js";
 import type { CreatedGame } from "../types/Game.js";
 import type { Player } from "../types/Player.js";
 
