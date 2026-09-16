@@ -5,11 +5,12 @@ import {
   updatePlayer,
 } from "@hellacardgames/lib";
 import { EXPIRY_EXTENSION_MS } from "../constants.js";
-import { allPlayersReadyForNextRound } from "../lib/allPlayersReadyForNextRound.js";
-import { startRound } from "../lib/startRound.js";
+import { allPlayersLockedHolds } from "../lib/allPlayersLockedHolds.js";
+import { drawCardsAndShowHands } from "../lib/drawCardsAndShowHands.js";
+import { transitionGameToCompleted } from "../lib/transitionGameToCompleted.js";
 import type { Game } from "../types/Game.js";
 
-export function reportReadyForNextRound(game: Game, playerId: string) {
+export function lockHolds(game: Game, playerId: string) {
   const player = game.players.find((p) => p.id === playerId);
   if (!player) {
     return { success: false, error: "playerNotFound" } as const;
@@ -17,25 +18,33 @@ export function reportReadyForNextRound(game: Game, playerId: string) {
   if (game.status !== "started") {
     return { success: false, error: "invalidStatus" } as const;
   }
-  if (player.status !== "reviewingOutcome") {
+  if (player.status !== "selectingHolds") {
     return { success: false, error: "invalidPlayerStatus" } as const;
   }
 
   game = updatePlayer(game, player.id, (p) => ({
     ...p,
-    status: "readyForNextRound",
+    status: "holdsLocked",
   }));
 
   game = emitEventToPlayer(game, player.id, {
-    type: "playerReadyForNextRound",
+    type: "playerLockedHolds",
   });
   game = emitEventToOtherPlayers(game, player.id, {
-    type: "otherPlayerReadyForNextRound",
+    type: "otherPlayerLockedHolds",
     username: player.username,
   });
 
-  if (allPlayersReadyForNextRound(game)) {
-    game = startRound(game);
+  if (allPlayersLockedHolds(game)) {
+    game = drawCardsAndShowHands(game);
+
+    game = { ...game, roundsCompleted: game.roundsCompleted + 1 };
+    game = emitEvent(game, { type: "roundCompleted" });
+
+    if (game.roundsCompleted === 10) {
+      game = transitionGameToCompleted(game);
+      game = emitEvent(game, { type: "gameCompleted" });
+    }
 
     game = { ...game, expiresAt: Date.now() + EXPIRY_EXTENSION_MS };
     game = emitEvent(game, {

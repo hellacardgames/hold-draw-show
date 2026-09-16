@@ -10,11 +10,11 @@ export const createClient = createClientFactory<Server, Manager>({
     playerId,
     cardId,
   }),
-  reportReadyForNextRound: (gameId: string, playerId: string) => ({
+  lockHolds: (gameId: string, playerId: string) => ({
     gameId,
     playerId,
   }),
-  reportReadyToDraw: (gameId: string, playerId: string) => ({
+  reportReadyForNextRound: (gameId: string, playerId: string) => ({
     gameId,
     playerId,
   }),

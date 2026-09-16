@@ -15,14 +15,14 @@ export const createServer = createServerFactory(createManager, {
       ({ gameId, playerId, cardId }) => [gameId, playerId, cardId] as const,
     ),
 
-  reportReadyForNextRound: z
+  lockHolds: z
     .object({
       gameId: z.string(),
       playerId: z.string(),
     })
     .transform(({ gameId, playerId }) => [gameId, playerId] as const),
 
-  reportReadyToDraw: z
+  reportReadyForNextRound: z
     .object({
       gameId: z.string(),
       playerId: z.string(),

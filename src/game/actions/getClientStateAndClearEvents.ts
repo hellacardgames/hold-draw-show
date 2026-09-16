@@ -41,7 +41,7 @@ export const getClientStateAndClearEvents = getClientStateAndClearEventsFactory<
 function getOtherPlayerHand(player: Player) {
   switch (player.status) {
     case "selectingHolds":
-    case "readyToDraw":
+    case "holdsLocked":
       return Array.from({ length: CARDS_PER_HAND }, () => null);
     case "waitingForGameToStart":
     case "reviewingOutcome":
@@ -53,7 +53,7 @@ function getOtherPlayerHand(player: Player) {
 function getOtherPlayerHandRankInfo(player: Player) {
   switch (player.status) {
     case "selectingHolds":
-    case "readyToDraw":
+    case "holdsLocked":
       return null;
     case "waitingForGameToStart":
     case "reviewingOutcome":

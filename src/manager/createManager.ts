@@ -6,9 +6,9 @@ import {
   holdCard,
   joinGame,
   leaveGame,
+  lockHolds,
   MAX_PLAYERS,
   reportReadyForNextRound,
-  reportReadyToDraw,
   sendChat,
   startGame,
   unholdCard,
@@ -27,8 +27,8 @@ export const createManager = createManagerFactory({
   startGame,
   gameplayActions: {
     holdCard,
+    lockHolds,
     reportReadyForNextRound,
-    reportReadyToDraw,
     unholdCard,
   },
 });

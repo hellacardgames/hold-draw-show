@@ -16,11 +16,9 @@ export type GetJoinableGamesResult = Awaited<
 export type HoldCardResult = Awaited<ReturnType<Client["holdCard"]>>;
 export type JoinGameResult = Awaited<ReturnType<Client["joinGame"]>>;
 export type LeaveGameResult = Awaited<ReturnType<Client["leaveGame"]>>;
+export type LockHoldsResult = Awaited<ReturnType<Client["lockHolds"]>>;
 export type ReportReadyForNextRoundResult = Awaited<
   ReturnType<Client["reportReadyForNextRound"]>
->;
-export type ReportReadyToDrawResult = Awaited<
-  ReturnType<Client["reportReadyToDraw"]>
 >;
 export type SendChatResult = Awaited<ReturnType<Client["sendChat"]>>;
 export type StartGameResult = Awaited<ReturnType<Client["startGame"]>>;

@@ -31,14 +31,6 @@ export type GameEvent =
       readonly id: string;
     }
   | {
-      readonly type: "otherPlayerDrewCards";
-      readonly id: string;
-      readonly username: string;
-      readonly hand: readonly Card[];
-      readonly handRankInfo: HandRankInfo | null;
-      readonly score: number;
-    }
-  | {
       readonly type: "otherPlayerHandInitialized";
       readonly id: string;
       readonly username: string;
@@ -61,27 +53,28 @@ export type GameEvent =
       readonly username: string;
     }
   | {
+      readonly type: "otherPlayerLockedHolds";
+      readonly id: string;
+      readonly username: string;
+    }
+  | {
       readonly type: "otherPlayerReadyForNextRound";
       readonly id: string;
       readonly username: string;
     }
   | {
-      readonly type: "otherPlayerReadyToDraw";
+      readonly type: "otherPlayerShowedHand";
       readonly id: string;
       readonly username: string;
+      readonly hand: readonly Card[];
+      readonly handRankInfo: HandRankInfo | null;
+      readonly score: number;
     }
   | {
       readonly type: "otherPlayerUnheldCard";
       readonly id: string;
       readonly username: string;
       readonly index: number;
-    }
-  | {
-      readonly type: "playerDrewCards";
-      readonly id: string;
-      readonly hand: readonly Card[];
-      readonly handRankInfo: HandRankInfo | null;
-      readonly score: number;
     }
   | {
       readonly type: "playerHandInitialized";
@@ -95,12 +88,19 @@ export type GameEvent =
       readonly index: number;
     }
   | {
+      readonly type: "playerLockedHolds";
+      readonly id: string;
+    }
+  | {
       readonly type: "playerReadyForNextRound";
       readonly id: string;
     }
   | {
-      readonly type: "playerReadyToDraw";
+      readonly type: "playerShowedHand";
       readonly id: string;
+      readonly hand: readonly Card[];
+      readonly handRankInfo: HandRankInfo | null;
+      readonly score: number;
     }
   | {
       readonly type: "playerUnheldCard";
