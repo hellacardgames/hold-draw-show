@@ -9,6 +9,8 @@ export function leaveGame(game: Game, playerId: string) {
     return { success: false, error: "playerNotFound" } as const;
   }
 
+  game = { ...game, deck: [...game.deck, ...player.hand] };
+
   game = emitEvent(game, { type: "playerLeft", username: player.username });
   game = removePlayer(game, player.id);
 
