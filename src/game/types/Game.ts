@@ -11,6 +11,7 @@ export type CreatedGame = {
   readonly expiresAt: number;
   readonly chatMessages: readonly ChatMessage[];
   readonly players: readonly Player[];
+  readonly adminId: string;
   readonly deck: readonly Card[];
   readonly roundsCompleted: number;
 };
@@ -22,6 +23,7 @@ export type StartedGame = {
   readonly expiresAt: number;
   readonly chatMessages: readonly ChatMessage[];
   readonly players: readonly Player[];
+  readonly adminId: string;
   readonly deck: readonly Card[];
   readonly roundsCompleted: number;
 };
@@ -33,6 +35,7 @@ export type CompletedGame = {
   readonly expiresAt: number;
   readonly chatMessages: readonly ChatMessage[];
   readonly players: readonly Player[];
+  readonly adminId: string;
   readonly deck: readonly Card[];
   readonly roundsCompleted: number;
 };
@@ -44,6 +47,7 @@ export type ForfeitedGame = {
   readonly expiresAt: number;
   readonly chatMessages: readonly ChatMessage[];
   readonly players: readonly Player[];
+  readonly adminId: string;
   readonly deck: readonly Card[];
   readonly roundsCompleted: number;
 };

@@ -1,4 +1,7 @@
-import { getClientStateAndClearEventsFactory } from "@hellacardgames/lib";
+import {
+  getClientStateAndClearEventsFactory,
+  requirePlayer,
+} from "@hellacardgames/lib";
 import { CARDS_PER_HAND } from "../constants.js";
 import type { ClientState } from "../types/ClientState.js";
 import type { Game } from "../types/Game.js";
@@ -20,6 +23,7 @@ export const getClientStateAndClearEvents = getClientStateAndClearEventsFactory<
     heldCardIndices: p.heldCardIndices,
     score: p.score,
   })),
+  adminUsername: requirePlayer(game, game.adminId).player.username,
   expiresAt: game.expiresAt,
   chatMessages: game.chatMessages,
   hand: player.hand,

@@ -8,6 +8,7 @@ export type ClientState = {
   readonly playerId: string;
   readonly username: string;
   readonly players: readonly Player[];
+  readonly adminUsername: string;
   readonly expiresAt: number;
   readonly chatMessages: readonly ChatMessage[];
   readonly hand: readonly Card[];
