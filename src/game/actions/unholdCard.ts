@@ -2,12 +2,13 @@ import {
   emitEventToOtherPlayers,
   emitEventToPlayer,
   removeItemFromCollection,
+  tryGetPlayer,
   updatePlayer,
 } from "@hellacardgames/lib";
 import type { Game } from "../types/Game.js";
 
 export function unholdCard(game: Game, playerId: string, cardId: string) {
-  const player = game.players.find((p) => p.id === playerId);
+  const { player } = tryGetPlayer(game, playerId);
   if (!player) {
     return { success: false, error: "playerNotFound" } as const;
   }
