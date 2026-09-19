@@ -1,4 +1,5 @@
 import {
+  allPlayersHaveStatus,
   emitEvent,
   emitEventToOtherPlayers,
   emitEventToPlayer,
@@ -6,7 +7,6 @@ import {
   updatePlayer,
 } from "@hellacardgames/lib";
 import { EXPIRY_EXTENSION_MS } from "../constants.js";
-import { allPlayersLockedHolds } from "../lib/allPlayersLockedHolds.js";
 import { drawCardsAndShowHands } from "../lib/drawCardsAndShowHands.js";
 import { transitionGameToCompleted } from "../lib/transitionGameToCompleted.js";
 import type { Game } from "../types/Game.js";
@@ -36,7 +36,7 @@ export function lockHolds(game: Game, playerId: string) {
     username: player.username,
   });
 
-  if (allPlayersLockedHolds(game)) {
+  if (allPlayersHaveStatus(game, "holdsLocked")) {
     game = drawCardsAndShowHands(game);
 
     game = { ...game, roundsCompleted: game.roundsCompleted + 1 };

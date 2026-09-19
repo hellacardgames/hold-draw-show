@@ -1,4 +1,5 @@
 import {
+  allPlayersHaveStatus,
   emitEvent,
   emitEventToOtherPlayers,
   emitEventToPlayer,
@@ -6,7 +7,6 @@ import {
   updatePlayer,
 } from "@hellacardgames/lib";
 import { EXPIRY_EXTENSION_MS } from "../constants.js";
-import { allPlayersReadyForNextRound } from "../lib/allPlayersReadyForNextRound.js";
 import { startRound } from "../lib/startRound.js";
 import type { Game } from "../types/Game.js";
 
@@ -35,7 +35,7 @@ export function reportReadyForNextRound(game: Game, playerId: string) {
     username: player.username,
   });
 
-  if (allPlayersReadyForNextRound(game)) {
+  if (allPlayersHaveStatus(game, "readyForNextRound")) {
     game = startRound(game);
 
     game = { ...game, expiresAt: Date.now() + EXPIRY_EXTENSION_MS };
