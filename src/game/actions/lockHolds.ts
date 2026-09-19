@@ -1,5 +1,4 @@
 import {
-  allPlayersHaveStatus,
   emitEvent,
   emitEventToOtherPlayers,
   emitEventToPlayer,
@@ -36,7 +35,7 @@ export function lockHolds(game: Game, playerId: string) {
     username: player.username,
   });
 
-  if (allPlayersHaveStatus(game, "holdsLocked")) {
+  if (game.players.every((p) => p.status === "holdsLocked")) {
     game = drawCardsAndShowHands(game);
 
     game = { ...game, roundsCompleted: game.roundsCompleted + 1 };

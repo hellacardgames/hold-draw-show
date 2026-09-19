@@ -1,5 +1,4 @@
 import {
-  allPlayersHaveStatus,
   emitEvent,
   emitEventToOtherPlayers,
   emitEventToPlayer,
@@ -35,7 +34,7 @@ export function reportReadyForNextRound(game: Game, playerId: string) {
     username: player.username,
   });
 
-  if (allPlayersHaveStatus(game, "readyForNextRound")) {
+  if (game.players.every((p) => p.status === "readyForNextRound")) {
     game = startRound(game);
 
     game = { ...game, expiresAt: Date.now() + EXPIRY_EXTENSION_MS };
