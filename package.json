@@ -1,6 +1,6 @@
 {
   "name": "@hellacardgames/hold-draw-show",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "A TypeScript library implementing the Hold Draw Show card game.",
   "type": "module",
   "license": "MIT",
