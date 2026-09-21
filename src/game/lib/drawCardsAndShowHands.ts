@@ -2,7 +2,7 @@ import {
   emitEventToOtherPlayers,
   emitEventToPlayer,
   shuffle,
-  takeLastItemFromCollection,
+  takeLastItem,
   updatePlayer,
 } from "@hellacardgames/lib";
 import { calculateHandRankInfo } from "./calculateHandRankInfo.js";
@@ -21,8 +21,7 @@ export function drawCardsAndShowHands(game: StartedGame): StartedGame {
     const hand = player.hand.map((card, index) => {
       if (!player.heldCardIndices.includes(index)) {
         let newCard: Card;
-        ({ collection: deck, item: newCard } =
-          takeLastItemFromCollection(deck));
+        ({ collection: deck, item: newCard } = takeLastItem(deck));
         return newCard;
       }
       return card;

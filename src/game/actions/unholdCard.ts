@@ -1,7 +1,7 @@
 import {
   emitEventToOtherPlayers,
   emitEventToPlayer,
-  removeItemFromCollection,
+  removeItem,
   tryGetPlayer,
   updatePlayer,
 } from "@hellacardgames/lib";
@@ -28,7 +28,7 @@ export function unholdCard(game: Game, playerId: string, cardId: string) {
 
   game = updatePlayer(game, player.id, (p) => ({
     ...p,
-    heldCardIndices: removeItemFromCollection(p.heldCardIndices, cardIndex),
+    heldCardIndices: removeItem(p.heldCardIndices, cardIndex),
   }));
 
   game = emitEventToPlayer(game, player.id, {

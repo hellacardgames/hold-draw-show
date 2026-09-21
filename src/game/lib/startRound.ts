@@ -2,7 +2,7 @@ import {
   emitEventToOtherPlayers,
   emitEventToPlayer,
   shuffle,
-  takeLastItemsFromCollection,
+  takeLastItems,
   updatePlayer,
 } from "@hellacardgames/lib";
 import { CARDS_PER_HAND } from "../constants.js";
@@ -15,10 +15,7 @@ export function startRound(game: StartedGame): StartedGame {
 
   for (const player of game.players) {
     let hand: readonly Card[];
-    ({ collection: deck, items: hand } = takeLastItemsFromCollection(
-      deck,
-      CARDS_PER_HAND,
-    ));
+    ({ collection: deck, items: hand } = takeLastItems(deck, CARDS_PER_HAND));
 
     const handRankInfo = calculateHandRankInfo(hand);
 

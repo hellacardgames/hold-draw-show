@@ -1,5 +1,5 @@
 import {
-  addItemToCollection,
+  addItem,
   emitEventToOtherPlayers,
   emitEventToPlayer,
   tryGetPlayer,
@@ -28,7 +28,7 @@ export function holdCard(game: Game, playerId: string, cardId: string) {
 
   game = updatePlayer(game, player.id, (p) => ({
     ...p,
-    heldCardIndices: addItemToCollection(p.heldCardIndices, cardIndex),
+    heldCardIndices: addItem(p.heldCardIndices, cardIndex),
   }));
 
   game = emitEventToPlayer(game, player.id, {
