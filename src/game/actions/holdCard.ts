@@ -1,5 +1,5 @@
 import {
-  addItem,
+  appendItem,
   emitEventToOtherPlayers,
   emitEventToPlayer,
   tryGetPlayer,
@@ -28,7 +28,7 @@ export function holdCard(game: Game, playerId: string, cardId: string) {
 
   game = updatePlayer(game, player.id, (p) => ({
     ...p,
-    heldCardIndices: addItem(p.heldCardIndices, cardIndex),
+    heldCardIndices: appendItem(p.heldCardIndices, cardIndex),
   }));
 
   game = emitEventToPlayer(game, player.id, {
